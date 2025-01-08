@@ -21,7 +21,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!newTodo) return;
+    if (!newTodo.trim()) return;
     const todo = await createTodo(newTodo);
     setTodos([...todos, todo]);
     setNewTodo('');
@@ -62,7 +62,7 @@ function App() {
         </div>
         <input type='text' value={newTodo} onChange={handleChange} />
       </form>
-      {todos.length &&
+      {todos.length ? (
         todos.map((todo) => {
           return (
             <div key={todo._id}>
@@ -84,7 +84,10 @@ function App() {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <p>Nothing to do</p>
+      )}
     </div>
   );
 }
